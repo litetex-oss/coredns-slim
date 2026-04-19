@@ -24,11 +24,12 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "actions"
       
-      - name: Cleanup
+      - name: Manage deps
         run: |
+          go get github.com/relekang/coredns-blocklist
           go mod tidy
 
-          git commit -a -m "go mod tidy" || true
+          git commit -a -m "Manage deps" || true
           git push || true
 
       - name: Build
