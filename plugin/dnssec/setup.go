@@ -139,19 +139,6 @@ func keyParse(c *caddy.Controller) ([]*DNSKEY, error) {
 			}
 			keys = append(keys, k)
 		}
-	case "aws_secretsmanager":
-		ks := c.RemainingArgs()
-		if len(ks) == 0 {
-			return nil, c.ArgErr()
-		}
-
-		for _, k := range ks {
-			k, err := ParseKeyFromAWSSecretsManager(k)
-			if err != nil {
-				return nil, err
-			}
-			keys = append(keys, k)
-		}
 	}
 	return keys, nil
 }

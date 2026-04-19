@@ -336,13 +336,6 @@ func makeServersForGroup(addr string, group []*Config) ([]caddy.Server, error) {
 			}
 			servers = append(servers, s)
 
-		case transport.GRPC:
-			s, err := NewServergRPC(addr, group)
-			if err != nil {
-				return nil, err
-			}
-			servers = append(servers, s)
-
 		case transport.HTTPS:
 			s, err := NewServerHTTPS(addr, group)
 			if err != nil {
