@@ -27,6 +27,7 @@ jobs:
       - name: Manage deps
         run: |
           go get github.com/relekang/coredns-blocklist
+          go generate
           go mod tidy
 
           git commit -a -m "Manage deps" || true
@@ -34,7 +35,6 @@ jobs:
 
       - name: Build
         run: |
-          go generate
           go build
 
       # TODO Upload, build docker, test, etc
