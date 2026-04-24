@@ -58,7 +58,9 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Pull changes
-        run: git pull || true
+        run: |
+          git fetch || true
+          git pull || true
 
       - uses: docker/setup-qemu-action@v4
 
@@ -134,7 +136,9 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Pull changes
-        run: git pull || true
+        run: |
+          git fetch || true
+          git pull || true
 
       - name: Prepare
         run: |
