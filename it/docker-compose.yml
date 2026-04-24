@@ -1,7 +1,6 @@
 services:
   dns:
     image: coredns/coredns
-    restart: unless-stopped
     user: 0:0
     command: 
       - "-conf"
