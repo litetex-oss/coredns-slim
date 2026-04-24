@@ -1,0 +1,57 @@
+(standard) {
+    errors
+
+    prometheus 0.0.0.0:9000
+}
+
+(external-tls) {
+    import standard
+
+    cache 21600 {
+        success 1000 86400 180
+        denial 1000
+    }
+
+    dnssec
+    loadbalance
+
+    blocklist /data/blocklist.txt
+
+    forward . 127.0.0.1:5301 127.0.0.1:5302 {
+        health_check 30s
+    }
+
+    tls /certs/certificate.crt /certs/privatekey.key
+}
+
+tls://.:853 {
+    import external-tls
+}
+
+https://.:443 {
+    import external-tls
+}
+
+
+## Upstream providers
+# https://en.wikipedia.org/wiki/Public_recursive_name_server
+
+# Google
+.:5301 {
+    import standard
+
+    forward . tls://8.8.4.4 tls://8.8.8.8 {
+        tls_servername dns.google
+        health_check 180s
+    }
+}
+
+# Cloudflare
+.:5302 {
+    import standard
+
+    forward . tls://1.0.0.1 tls://1.1.1.1 {
+        tls_servername cloudflare-dns.com
+        health_check 180s
+    }
+}
