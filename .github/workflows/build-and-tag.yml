@@ -91,18 +91,18 @@ jobs:
             -nodes \
             -out certs/certificate.crt \
             -keyout certs/privatekey.key \
-            -subj "/C=US/ST=DUMMY/L=DUMMY/O=Security/OU=DUMMY/CN=localhost"
+            -subj "/C=US/ST=DUMMY/L=DUMMY/O=Security/OU=DUMMY/CN=127.0.0.1"
           
           docker compose up -d
 
           sleep 5s
 
-          curl -f http://localhost:9000/metrics > /dev/null && echo "Metrics are working" || exit 1
+          curl -f http://127.0.0.1:9000/metrics > /dev/null && echo "Metrics are working" || exit 1
 
-          dig @localhost +short +tls-ca=certs/certificate.crt +https example.org | grep "[[:alnum:]]" && echo "DNS over HTTPS is working" || exit 1
-          dig @localhost +short +tls-ca=certs/certificate.crt +tls example.org | grep "[[:alnum:]]" && echo "DNS over TLS is working" || exit 1
+          dig @127.0.0.1 +short +tls-ca=certs/certificate.crt +https example.org | grep "[[:alnum:]]" && echo "DNS over HTTPS is working" || exit 1
+          dig @127.0.0.1 +short +tls-ca=certs/certificate.crt +tls example.org | grep "[[:alnum:]]" && echo "DNS over TLS is working" || exit 1
 
-          dig @localhost +short +tls-ca=certs/certificate.crt +tls example.net | grep "[[:alnum:]]" && exit 1 || echo "Blocklist is blocking"
+          dig @127.0.0.1 +short +tls-ca=certs/certificate.crt +tls example.net | grep "[[:alnum:]]" && exit 1 || echo "Blocklist is blocking"
 
           echo "success=true" >> "$GITHUB_OUTPUT"
 
