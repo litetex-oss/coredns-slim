@@ -1,6 +1,6 @@
 services:
   dns:
-    image: coredns/coredns
+    image: test/coredns-test
     user: 0:0
     command: 
       - "-conf"

@@ -15,7 +15,7 @@
     dnssec
     loadbalance
 
-    blocklist /data/blocklist.txt
+    blocklist /blocklists/blocklist.txt
 
     forward . 127.0.0.1:5301 127.0.0.1:5302 {
         health_check 30s
