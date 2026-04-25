@@ -1,2 +1,6 @@
-*
-!coredns
+it/
+notes/
+test/
+.github/
+/coredns
+*.exe

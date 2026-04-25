@@ -1,0 +1,22 @@
+services:
+  dns:
+    image: test/coredns-test
+    user: 0:0
+    command: 
+      - "-conf"
+      - "/config/Test.Corefile"
+    environment:
+      - QUIC_GO_DISABLE_RECEIVE_BUFFER_WARNING=true
+    volumes:
+      - ./config:/config:ro
+      - ./certs:/certs:ro
+      - ./blocklists:/blocklists:ro
+    ports:
+      # DNS over TLS
+      - 853:853/tcp
+      # DNS over Quic
+      - 853:853/udp
+      # DNS over HTTPS(v1,v2)
+      - 443:443/tcp
+      # Metrics
+      - 9000:9000/tcp
