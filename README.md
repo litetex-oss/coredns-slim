@@ -28,7 +28,7 @@ Additionally some other essential plugins that are somehow not part of the core 
 * Added plugins
   * [blocklist](https://github.com/relekang/coredns-blocklist)
 * Other changes
-  * Patched [TTL bug](https://github.com/coredns/coredns/issues/7846) that never allows it to be higher than 1h
+  * Increased [harcoded MaxTTL](https://github.com/coredns/coredns/issues/7846)
 
 ## How?
 The updating logic can be found in the [sidecar repo](https://github.com/litetex-oss/coredns-slim-manager).
